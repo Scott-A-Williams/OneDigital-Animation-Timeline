@@ -335,9 +335,40 @@ dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
 
 $("start").onclick=async()=>{
   if(selected<0||!isEditor())return;
-  const hours=Number($("responseWindow").value)||24;
-  const ok=await commit((s,a)=>{s[selected]={...(s[selected]||{}),status:"active",startedAt:new Date().toISOString(),windowHours:hours,updatedAt:new Date().toISOString()};addActivity(a,selected,"Timer started",`${hours}h response window started`)});
-  if(ok){toast(hours+"h response window started");dlg.close()}
+
+  const timerHours={
+    "Script shared":24,
+    "Final script shared":72,
+    "Style frames shared":24,
+    "Animatic V1":72,
+    "VO artist options shared":48,
+    "Animation V1":48,
+    "Animation V2":24
+  };
+
+  const hours=timerHours[data[selected][3]]||24;
+
+  const ok=await commit((s,a)=>{
+    s[selected]={
+      ...(s[selected]||{}),
+      status:"active",
+      startedAt:new Date().toISOString(),
+      windowHours:hours,
+      updatedAt:new Date().toISOString()
+    };
+
+    addActivity(
+      a,
+      selected,
+      "Timer started",
+      `${hours}h response window started`
+    );
+  });
+
+  if(ok){
+    toast(hours+"h response window started");
+    dlg.close();
+  }
 }
 
 $("save").onclick=async()=>{
