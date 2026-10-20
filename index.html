@@ -280,7 +280,7 @@ function tick(){
   renderProjectTimer();renderBigTimer();setTimeout(tick,1000);
 }
 
-async function changeStatus(i,status){
+window.changeStatus = async function(i,status){
   if(!isEditor()){toast("Sign in with Google to make changes");return}
   const previous=state[i]?.status||"upcoming";
   if(previous===status)return;
