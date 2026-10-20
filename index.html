@@ -69,7 +69,7 @@ dialog{border:0;border-radius:18px;padding:0;width:min(620px,92vw);background:#f
 
 <div class="timer-zone" id="timerZone" aria-live="polite">
   <div class="timer-zone-inner">
-    <div><div class="timer-eyebrow">LIVE RESPONSE WINDOW</div><div class="timer-title" id="timerTitle">No active response window</div><div class="timer-meta" id="timerMeta">Start a 24h or 48h window from a milestone when feedback or approval is requested.</div></div>
+    <div><div class="timer-eyebrow">LIVE RESPONSE WINDOW</div><div class="timer-title" id="timerTitle">No active response window</div><div class="timer-meta" id="timerMeta">Start a 24h, 48h or 72h window from a milestone when feedback or approval is requested.</div></div>
     <div class="big-timer" id="bigTimer">--:--:--</div>
     <div class="timer-actions"><button class="timer-control" id="timerRestart">Restart</button><button class="timer-control" id="timerStop">Stop</button><button class="timer-control finish" id="timerFinish">Finish</button><button class="timer-open" id="timerOpen">Open milestone</button></div>
   </div>
@@ -96,7 +96,8 @@ dialog{border:0;border-radius:18px;padding:0;width:min(620px,92vw);background:#f
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-import { getFirestore, doc, onSnapshot, runTransaction, setDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import { getFirestore, doc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
 const firebaseConfig={
   apiKey:"AIzaSyB3FJMPxtcMiv78r9eeT3K_gS6XCo4Xcr0",
   authDomain:"onedigital-animation-timeline.firebaseapp.com",
@@ -134,15 +135,15 @@ const data=[
 const statusOptions=["upcoming","in-progress","awaiting-uon","feedback-received","changes-requested","approved","complete","at-risk","blocked"];
 const statusLabels={"upcoming":"Not started","in-progress":"In progress","awaiting-uon":"Awaiting UoN","feedback-received":"Feedback received","changes-requested":"Changes requested","approved":"Approved","complete":"Complete","at-risk":"At risk","blocked":"Blocked"};
 const responsePresets={
-"Script shared":[[24,"24h feedback"]],
-"Final script shared":[[72,"72h final sign-off"]],
-"Style frames shared":[[24,"24h feedback"]],
-"Animatic V1":[[72,"72h feedback"]],
-"VO artist options shared":[[48,"48h selection"]],
-"Animation V1":[[48,"48h feedback"]],
-"Animation V2":[[24,"24h feedback"]]
+"Script shared":[[24,"24h feedback"],[48,"48h feedback"]],
+"Final script shared":[[72,"72h final sign-off"],[48,"48h final sign-off"],[24,"24h final sign-off"]],
+"Style frames shared":[[24,"24h feedback"],[48,"48h feedback"]],
+"Animatic V1":[[72,"72h feedback"],[48,"48h feedback"],[24,"24h feedback"]],
+"VO artist options shared":[[48,"48h selection"],[24,"24h selection"]],
+"Animation V1":[[48,"48h feedback"],[24,"24h feedback"]],
+"Animation V2":[[24,"24h feedback"],[48,"48h feedback"]]
 };
-const defaultResponsePresets=[[24,"24h"]];
+const defaultResponsePresets=[[24,"24h"],[48,"48h"],[72,"72h"]];
 
 let state={};
 let activity=[];
@@ -280,7 +281,7 @@ function tick(){
   renderProjectTimer();renderBigTimer();setTimeout(tick,1000);
 }
 
-window.changeStatus = async function(i,status){
+async function changeStatus(i,status){
   if(!isEditor()){toast("Sign in with Google to make changes");return}
   const previous=state[i]?.status||"upcoming";
   if(previous===status)return;
@@ -291,6 +292,10 @@ window.changeStatus = async function(i,status){
   });
   if(ok){toast(`${data[i][3]} · ${statusLabels[status]}`)}
 }
+
+// This file uses a module script, so function declarations are not automatically
+// attached to window. The milestone selects call window.changeStatus(...).
+window.changeStatus=changeStatus;
 
 async function restartTimer(){
   const i=activeWindowIndex();if(i<0)return;
@@ -317,7 +322,9 @@ window.openItem=function(i){
   $("modalStatus").innerHTML=statusOptions.map(x=>`<option value="${x}" ${st===x?"selected":""}>${statusLabels[x]}</option>`).join("");
   const presets=responsePresets[d[3]]||defaultResponsePresets;
   $("responseWindow").innerHTML=presets.map(x=>`<option value="${x[0]}">${x[1]}</option>`).join("");
-  $("responseWindow").value=String(presets[0]?.[0]||24);
+  const existingHours=Number(state[i]?.windowHours);
+  const selectedHours=presets.some(x=>Number(x[0])===existingHours)?existingHours:Number(presets[0]?.[0]||24);
+  $("responseWindow").value=String(selectedHours);
   $("responseWindow").disabled=!isEditor();
   $("notes").value=state[i]?.note||"";
   $("notes").disabled=!isEditor();
@@ -335,40 +342,9 @@ dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
 
 $("start").onclick=async()=>{
   if(selected<0||!isEditor())return;
-
-  const timerHours={
-    "Script shared":24,
-    "Final script shared":72,
-    "Style frames shared":24,
-    "Animatic V1":72,
-    "VO artist options shared":48,
-    "Animation V1":48,
-    "Animation V2":24
-  };
-
-  const hours=timerHours[data[selected][3]]||24;
-
-  const ok=await commit((s,a)=>{
-    s[selected]={
-      ...(s[selected]||{}),
-      status:"active",
-      startedAt:new Date().toISOString(),
-      windowHours:hours,
-      updatedAt:new Date().toISOString()
-    };
-
-    addActivity(
-      a,
-      selected,
-      "Timer started",
-      `${hours}h response window started`
-    );
-  });
-
-  if(ok){
-    toast(hours+"h response window started");
-    dlg.close();
-  }
+  const hours=Number($("responseWindow").value)||24;
+  const ok=await commit((s,a)=>{s[selected]={...(s[selected]||{}),status:"active",startedAt:new Date().toISOString(),windowHours:hours,updatedAt:new Date().toISOString()};addActivity(a,selected,"Timer started",`${hours}h response window started`)});
+  if(ok){toast(hours+"h response window started");dlg.close()}
 }
 
 $("save").onclick=async()=>{
