@@ -7,95 +7,112 @@
 <style>
 :root{--notts:#10263B;--malaysia:#009BC1;--bg:#FDFBF9;--white:#fff;--deadline:#D7336C;--late:#B91C2E;--close:#F98109;--done:#93D500;--muted:#9AA6AD;--border:#DDE3E7;--text2:#52616B}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--notts);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,input,textarea{font:inherit}.app{max-width:1500px;margin:auto;padding:28px 34px 60px}
-header{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:28px}.eyebrow{font-size:12px;letter-spacing:.14em;font-weight:800;text-transform:uppercase;color:var(--malaysia)}h1{font-size:40px;line-height:1.05;margin:7px 0 6px;letter-spacing:-.035em}.sub{color:var(--text2);margin:0}.share{background:var(--notts);color:#fff;border:0;border-radius:10px;padding:11px 16px;font-weight:750;cursor:pointer;transition:.2s}.share:hover{transform:translateY(-1px)}
-.summary{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:12px;margin-bottom:30px}.metric{background:#fff;border:1px solid var(--border);border-radius:15px;padding:17px 18px;box-shadow:0 4px 18px #10263b0b}.metric small{display:block;text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:800;color:var(--muted)}.metric strong{display:block;font-size:21px;margin-top:4px}.metric.action{border-left:5px solid var(--close)}.timer{font-variant-numeric:tabular-nums}
-.timeline-wrap{background:#fff;border:1px solid var(--border);border-radius:20px;padding:24px 22px 28px;overflow:visible}.stage-row{display:grid;grid-template-columns:repeat(5,minmax(210px,1fr));gap:0;min-width:1760px}.stage{padding:0 14px 14px;border-bottom:3px solid var(--notts);font-weight:850;letter-spacing:.04em}.stage:first-child{padding-left:4px}.stage span{display:block;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
-.rail{position:relative;min-width:1760px;padding:32px 0 10px}.rail:before{content:"";position:absolute;top:49px;left:20px;right:20px;height:3px;background:var(--border)}.events{display:grid;grid-template-columns:repeat(16,minmax(110px,1fr));gap:0;position:relative}.event{position:relative;padding:0 7px}.dot{width:17px;height:17px;border-radius:50%;background:var(--white);border:4px solid var(--notts);position:relative;margin:8px auto 13px;z-index:2;transition:.25s}.event.complete .dot{border-color:var(--done);background:var(--done)}.event.active .dot{border-color:var(--malaysia);box-shadow:0 0 0 6px #009bc122}.event.late .dot{border-color:var(--late);background:var(--late)}.card{border:1px solid var(--border);border-top:4px solid var(--notts);border-radius:13px;padding:12px;background:#fff;min-height:154px;cursor:pointer;transition:.2s;box-shadow:0 5px 16px #10263b0a}.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px #10263b16}.event.complete .card{border-top-color:var(--done)}.event.active .card{border-top-color:var(--malaysia)}.event.late .card{border-top-color:var(--late)}.date{font-size:10px;font-weight:850;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.owner{display:inline-block;margin:7px 0;font-size:10px;font-weight:850;padding:4px 7px;border-radius:999px;background:var(--notts);color:#fff}.event.active .owner{background:var(--malaysia)}.event.complete .owner{background:var(--done);color:var(--notts)}.event.late .owner{background:var(--late)}.title{font-weight:850;font-size:14px;line-height:1.2}.status{font-size:11px;margin-top:9px;font-weight:750}.status.close{color:var(--close)}.status-select{margin-top:8px;width:100%;border:1px solid var(--border);border-radius:8px;padding:6px 7px;background:#fff;color:var(--notts);font-size:10px;font-weight:800;cursor:pointer}.status-select:focus{outline:2px solid #009bc144}.status.active{color:var(--malaysia)}.status.done{color:#609000}.status.late{color:var(--late)}.mini{font-size:10px;color:var(--text2);margin-top:6px}.updated{font-size:9px;color:var(--muted);margin-top:8px}.tag{position:absolute;top:-4px;right:5px;font-size:9px;font-weight:900;color:var(--deadline)}
- .project-ring{position:relative;width:92px;height:92px;flex:0 0 92px}.project-ring svg{width:100%;height:100%;transform:rotate(-90deg)}.ring-track,.ring-value{fill:none;stroke-width:7}.ring-track{stroke:#ffffff33}.ring-value{stroke:#93D500;stroke-linecap:round;stroke-dasharray:270.18;stroke-dashoffset:0;transition:stroke-dashoffset .5s ease}.ring-label{position:absolute;inset:0;display:grid;place-items:center;font-size:14px;font-weight:900}.project-progress{margin:0 0 22px;padding:14px 18px 16px;border:1px solid var(--border);border-radius:14px;background:#fff}.progress-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--notts);margin-bottom:7px}.progress-head span{font-size:11px;color:var(--text2);font-weight:700}.progress-track{height:14px;background:#E4E9EC;border-radius:999px;overflow:hidden}.progress-value{height:100%;width:0;background:linear-gradient(90deg,var(--malaysia),var(--done));border-radius:999px;transition:width .5s ease}@media(max-width:800px){.project-timer{grid-template-columns:auto 1fr}.project-ring{grid-row:1 / span 2}.project-clock{font-size:23px}.project-timer-actions{grid-column:2}}
-.project-timer{margin:18px 0 22px;border:1px solid var(--border);border-radius:16px;background:var(--notts);color:#fff;display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:22px;padding:18px 22px;box-shadow:0 8px 24px #10263b12}.project-timer .timer-eyebrow{color:#fff;opacity:.72}.project-timer-title{font-size:18px;font-weight:900;margin-top:2px}.project-timer-meta{font-size:11px;opacity:.72;margin-top:3px}.project-clock-wrap{min-width:260px}.project-clock{font-variant-numeric:tabular-nums;font-size:27px;font-weight:900;white-space:nowrap;letter-spacing:.02em}.time-progress-track{height:7px;background:#ffffff26;border-radius:999px;overflow:hidden;margin-top:9px}.time-progress-value{height:100%;width:0;background:var(--done);border-radius:999px;transition:width .5s ease}.time-progress-label{display:flex;justify-content:space-between;margin-top:4px;font-size:9px;opacity:.7}.project-timer-actions{display:flex;gap:7px}.project-timer .timer-control{background:#fff;color:var(--notts);border-color:#fff}.project-timer.paused{opacity:.72}.project-timer.paused .project-clock{opacity:.8}@media(max-width:800px){.project-timer{grid-template-columns:1fr}.project-clock{font-size:25px}.project-timer-actions{width:100%}.project-timer-actions button{flex:1}}
-.timer-zone{display:block;visibility:hidden;opacity:0;position:relative;margin:22px 0 2px;border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:0 8px 24px #10263b0d;overflow:hidden}
-.timer-zone.show{visibility:visible;opacity:1;animation:timerIn .35s ease-out}
-.timer-zone:before{content:"";position:absolute;left:22px;top:0;bottom:0;width:5px;background:var(--malaysia)}
-.timer-zone-inner{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:24px;padding:18px 22px 18px 36px}
-.timer-eyebrow{font-size:9px;font-weight:900;letter-spacing:.14em;color:var(--malaysia)}
-.timer-title{font-size:17px;font-weight:900;margin-top:3px}
-.timer-meta{font-size:11px;color:var(--text2);margin-top:3px}
-.big-timer{font-variant-numeric:tabular-nums;font-size:31px;font-weight:900;letter-spacing:.025em;color:var(--notts);white-space:nowrap}
-.timer-open{border:0;background:var(--notts);color:#fff;border-radius:9px;padding:10px 13px;font-size:11px;font-weight:850;cursor:pointer}
-.timer-open:hover,.timer-control:hover{transform:translateY(-1px)}.timer-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.timer-control{border:1px solid var(--border);background:#fff;color:var(--notts);border-radius:8px;padding:9px 10px;font-size:10px;font-weight:850;cursor:pointer}.timer-control.finish{background:var(--done);border-color:var(--done)}
-@keyframes timerIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
-@media(max-width:800px){.timer-zone-inner{grid-template-columns:1fr;gap:10px}.big-timer{font-size:28px}.timer-open{width:max-content}}
-.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;color:var(--text2);font-size:11px}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.tabs{display:flex;gap:8px;margin:22px 0 14px}.tab{border:1px solid var(--border);background:#fff;color:var(--notts);border-radius:9px;padding:9px 13px;font-weight:750;cursor:pointer}.tab.active{background:var(--notts);color:#fff}.panel{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.list,.activity{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px}.list h2,.activity h2{font-size:16px;margin:0 0 13px}.activity-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.activity-reset{border:1px solid var(--border);background:#fff;color:var(--notts);border-radius:7px;padding:6px 9px;font-size:10px;font-weight:800;cursor:pointer}.activity-reset:hover{border-color:var(--malaysia);color:var(--malaysia)}.row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 0;border-bottom:1px solid var(--border)}.row:last-child{border-bottom:0}.row small{display:block;color:var(--muted);margin-top:2px}.row button{border:0;background:var(--notts);color:#fff;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:750;cursor:pointer}.activity p{margin:0;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}.activity p:last-child{border:0}
-dialog{border:0;border-radius:18px;padding:0;width:min(620px,92vw);background:#fff;color:var(--notts);box-shadow:0 24px 70px #10263b55}dialog::backdrop{background:#10263b66}.modal{padding:30px}.modal label{display:block;color:var(--notts);font-size:14px;margin-bottom:7px}.modal textarea{background:#fff;color:var(--notts);font-size:14px;line-height:1.5}.modal textarea::placeholder{color:#7A858D;opacity:1}.modal-head{display:flex;justify-content:space-between;gap:15px}.closebtn{border:0;background:#eef1f3;border-radius:50%;width:32px;height:32px;cursor:pointer}.modal h2{margin:4px 0}.meta{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.pill{background:#eef1f3;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:750}.modal textarea{width:100%;min-height:130px;border:1px solid #B8C4CB;border-radius:10px;padding:13px;resize:vertical;background:#fff;color:var(--notts);font-size:14px;line-height:1.5}.modal textarea:focus{outline:3px solid #009bc133;border-color:var(--malaysia)}.response-start{display:flex;align-items:end;gap:8px;margin-top:14px}.response-start label{flex:1}.response-start select{display:block;width:100%;border:1px solid #B8C4CB;border-radius:10px;padding:10px 12px;background:#fff;color:var(--notts);font-weight:750}.response-start .start{white-space:nowrap}.modal-status{margin:14px 0 18px}.modal-status select{width:100%;border:1px solid #B8C4CB;border-radius:10px;padding:10px 12px;background:#fff;color:var(--notts);font-weight:750}.modal-status select:focus{outline:3px solid #009bc133;border-color:var(--malaysia)}.field-help{font-size:11px;color:#65727A;margin-top:6px;line-height:1.4}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}.actions button{border:0;border-radius:9px;padding:10px 14px;font-weight:800;cursor:pointer}.start{background:var(--malaysia);color:#fff}.approve{background:var(--done);color:var(--notts)}.feedback{background:var(--close);color:#fff}.save{background:var(--notts);color:#fff}.toast{position:fixed;right:24px;bottom:24px;background:var(--notts);color:#fff;padding:12px 16px;border-radius:10px;opacity:0;transform:translateY(12px);transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:none}
-@media(max-width:800px){.actions{justify-content:stretch;flex-wrap:wrap}.actions button{flex:1 1 45%}.app{padding:20px 16px}h1{font-size:31px}.summary{grid-template-columns:1fr 1fr}.panel{grid-template-columns:1fr}header{display:block}.share{margin-top:18px}}
+button,input,textarea,select{font:inherit}.app{max-width:1500px;margin:auto;padding:28px 34px 60px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:28px}.eyebrow{font-size:12px;letter-spacing:.14em;font-weight:800;text-transform:uppercase;color:var(--malaysia)}h1{font-size:40px;line-height:1.05;margin:7px 0 6px;letter-spacing:-.035em}.sub{color:var(--text2);margin:0}
+.header-actions{display:flex;gap:8px;align-items:center}.share,.auth{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer;transition:.2s}.share{background:var(--notts);color:#fff}.auth{background:#fff;color:var(--notts);border:1px solid var(--border)}.auth.signed{border-color:var(--malaysia);color:var(--malaysia)}.share:hover,.auth:hover{transform:translateY(-1px)}
+.summary{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:12px;margin-bottom:18px}.metric{background:#fff;border:1px solid var(--border);border-radius:15px;padding:17px 18px;box-shadow:0 4px 18px #10263b0b}.metric small{display:block;text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:800;color:var(--muted)}.metric strong{display:block;font-size:21px;margin-top:4px}.metric.action{border-left:5px solid var(--close)}.timer{font-variant-numeric:tabular-nums}
+.project-timer{margin:0 0 18px;border:1px solid var(--border);border-radius:16px;background:var(--notts);color:#fff;display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:22px;padding:18px 22px;box-shadow:0 8px 24px #10263b12}.project-timer .timer-eyebrow{color:#fff;opacity:.72}.project-timer-title{font-size:18px;font-weight:900;margin-top:2px}.project-timer-meta{font-size:11px;opacity:.72;margin-top:3px}.project-clock-wrap{min-width:260px}.project-clock{font-variant-numeric:tabular-nums;font-size:27px;font-weight:900;white-space:nowrap;letter-spacing:.02em}.time-progress-track{height:7px;background:#ffffff26;border-radius:999px;overflow:hidden;margin-top:9px}.time-progress-value{height:100%;width:0;background:var(--done);border-radius:999px;transition:width .5s ease}.time-progress-label{display:flex;justify-content:space-between;margin-top:4px;font-size:9px;opacity:.7}.project-timer-actions{display:flex;gap:7px}.project-timer .timer-control{background:#fff;color:var(--notts);border-color:#fff}.project-timer.paused{opacity:.72}
+.project-ring{position:relative;width:92px;height:92px;flex:0 0 92px}.project-ring svg{width:100%;height:100%;transform:rotate(-90deg)}.ring-track,.ring-value{fill:none;stroke-width:7}.ring-track{stroke:#ffffff33}.ring-value{stroke:var(--done);stroke-linecap:round;stroke-dasharray:270.18;stroke-dashoffset:270.18;transition:stroke-dashoffset .5s ease}.ring-label{position:absolute;inset:0;display:grid;place-items:center;font-size:14px;font-weight:900}
+.project-progress{margin:0 0 22px;padding:14px 18px 16px;border:1px solid var(--border);border-radius:14px;background:#fff}.progress-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--notts);margin-bottom:7px}.progress-head span{font-size:11px;color:var(--text2);font-weight:700}.progress-track{height:14px;background:#E4E9EC;border-radius:999px;overflow:hidden}.progress-value{height:100%;width:0;background:linear-gradient(90deg,var(--malaysia),var(--done));border-radius:999px;transition:width .5s ease}
+.timeline-wrap{background:#fff;border:1px solid var(--border);border-radius:20px;padding:24px 22px 28px;overflow-x:auto;overflow-y:visible}.stage-row{display:grid;grid-template-columns:repeat(5,minmax(210px,1fr));gap:0;min-width:1760px}.stage{padding:0 14px 14px;border-bottom:3px solid var(--notts);font-weight:850;letter-spacing:.04em}.stage:first-child{padding-left:4px}.stage span{display:block;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
+.rail{position:relative;min-width:1760px;padding:32px 0 10px}.rail:before{content:"";position:absolute;top:49px;left:20px;right:20px;height:3px;background:var(--border)}.events{display:grid;grid-template-columns:repeat(16,minmax(110px,1fr));gap:0;position:relative}.event{position:relative;padding:0 7px}.dot{width:17px;height:17px;border-radius:50%;background:var(--white);border:4px solid var(--notts);position:relative;margin:8px auto 13px;z-index:2;transition:.25s}.event.complete .dot{border-color:var(--done);background:var(--done)}.event.active .dot{border-color:var(--malaysia);box-shadow:0 0 0 6px #009bc122}.event.late .dot{border-color:var(--late);background:var(--late)}
+.card{border:1px solid var(--border);border-top:4px solid var(--notts);border-radius:13px;padding:12px;background:#fff;min-height:154px;cursor:pointer;transition:.2s;box-shadow:0 5px 16px #10263b0a}.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px #10263b16}.event.complete .card{border-top-color:var(--done)}.event.active .card{border-top-color:var(--malaysia)}.event.late .card{border-top-color:var(--late)}.date{font-size:10px;font-weight:850;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.owner{display:inline-block;margin:7px 0;font-size:10px;font-weight:850;padding:4px 7px;border-radius:999px;background:var(--notts);color:#fff}.event.active .owner{background:var(--malaysia)}.event.complete .owner{background:var(--done);color:var(--notts)}.event.late .owner{background:var(--late)}.title{font-weight:850;font-size:14px;line-height:1.2}.status{font-size:11px;margin-top:9px;font-weight:750}.status.close{color:var(--close)}.status.active{color:var(--malaysia)}.status.done{color:#609000}.status.late{color:var(--late)}.status-select{margin-top:8px;width:100%;border:1px solid var(--border);border-radius:8px;padding:6px 7px;background:#fff;color:var(--notts);font-size:10px;font-weight:800;cursor:pointer}.status-select:focus{outline:2px solid #009bc144}.mini{font-size:10px;color:var(--text2);margin-top:6px}.updated{font-size:9px;color:var(--muted);margin-top:8px}.tag{position:absolute;top:-4px;right:5px;font-size:9px;font-weight:900;color:var(--deadline)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;color:var(--text2);font-size:11px}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.timer-zone{display:none;position:relative;margin:22px 0 2px;border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:0 8px 24px #10263b0d;overflow:hidden}.timer-zone.show{display:block;animation:timerIn .35s ease-out}.timer-zone:before{content:"";position:absolute;left:22px;top:0;bottom:0;width:5px;background:var(--malaysia)}.timer-zone-inner{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:24px;padding:18px 22px 18px 36px}.timer-eyebrow{font-size:9px;font-weight:900;letter-spacing:.14em;color:var(--malaysia)}.timer-title{font-size:17px;font-weight:900;margin-top:3px}.timer-meta{font-size:11px;color:var(--text2);margin-top:3px}.big-timer{font-variant-numeric:tabular-nums;font-size:31px;font-weight:900;letter-spacing:.025em;color:var(--notts);white-space:nowrap}.timer-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.timer-control,.timer-open{border:1px solid var(--border);background:#fff;color:var(--notts);border-radius:8px;padding:9px 10px;font-size:10px;font-weight:850;cursor:pointer}.timer-open{border:0;background:var(--notts);color:#fff}.timer-control.finish{background:var(--done);border-color:var(--done)}.timer-open:hover,.timer-control:hover{transform:translateY(-1px)}@keyframes timerIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.tabs{display:flex;gap:8px;margin:22px 0 14px}.tab{border:1px solid var(--border);background:#fff;color:var(--notts);border-radius:9px;padding:9px 13px;font-weight:750;cursor:pointer}.tab.active{background:var(--notts);color:#fff}.panel{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.list,.activity{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;min-height:170px}.list h2,.activity h2{font-size:16px;margin:0 0 13px}.activity-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.activity-reset{border:1px solid var(--border);background:#fff;color:var(--notts);border-radius:7px;padding:6px 9px;font-size:10px;font-weight:800;cursor:pointer}.activity-reset:hover{border-color:var(--malaysia);color:var(--malaysia)}.row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 0;border-bottom:1px solid var(--border)}.row:last-child{border-bottom:0}.row small{display:block;color:var(--muted);margin-top:2px}.row button{border:0;background:var(--notts);color:#fff;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:750;cursor:pointer}.activity p{margin:0;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}.activity p:last-child{border:0}
+dialog{border:0;border-radius:18px;padding:0;width:min(620px,92vw);background:#fff;color:var(--notts);box-shadow:0 24px 70px #10263b55}dialog::backdrop{background:#10263b66}.modal{padding:30px}.modal label{display:block;color:var(--notts);font-size:14px;margin-bottom:7px}.modal textarea{background:#fff;color:var(--notts);font-size:14px}.modal textarea::placeholder{color:#7A858D;opacity:1}.modal-head{display:flex;justify-content:space-between;gap:15px}.closebtn{border:0;background:#eef1f3;border-radius:50%;width:32px;height:32px;cursor:pointer}.modal h2{margin:4px 0}.meta{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.pill{background:#eef1f3;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:750}.modal textarea{width:100%;min-height:130px;border:1px solid #B8C4CB;border-radius:10px;padding:13px;resize:vertical;line-height:1.5}.modal textarea:focus{outline:3px solid #009bc133;border-color:var(--malaysia)}.response-start{display:flex;align-items:end;gap:8px;margin-top:14px}.response-start label{flex:1}.response-start select{display:block;width:100%;border:1px solid #B8C4CB;border-radius:10px;padding:10px 12px;background:#fff;color:var(--notts);font-weight:750}.response-start .start{white-space:nowrap}.modal-status{margin:14px 0 18px}.modal-status select{width:100%;border:1px solid #B8C4CB;border-radius:10px;padding:10px 12px;background:#fff;color:var(--notts);font-weight:750}.modal-status select:focus{outline:3px solid #009bc133;border-color:var(--malaysia)}.field-help{font-size:11px;color:#65727A;margin-top:6px;line-height:1.4}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;flex-wrap:wrap}.actions button{border:0;border-radius:9px;padding:10px 14px;font-weight:800;cursor:pointer}.start{background:var(--malaysia);color:#fff}.approve{background:var(--done);color:var(--notts)}.feedback{background:var(--close);color:#fff}.save{background:var(--notts);color:#fff}.toast{position:fixed;right:24px;bottom:24px;background:var(--notts);color:#fff;padding:12px 16px;border-radius:10px;opacity:0;transform:translateY(12px);transition:.25s;pointer-events:none;z-index:20}.toast.show{opacity:1;transform:none}.viewer-note{font-size:11px;color:var(--text2);margin-top:8px}.loading{padding:30px;text-align:center;color:var(--text2)}
+@media(max-width:800px){.project-timer{grid-template-columns:auto 1fr}.project-ring{grid-row:1 / span 2}.project-clock{font-size:23px}.project-timer-actions{grid-column:2}.actions{justify-content:stretch}.actions button{flex:1 1 45%}.app{padding:20px 16px}h1{font-size:31px}.summary{grid-template-columns:1fr 1fr}.panel{grid-template-columns:1fr}header{display:block}.header-actions{margin-top:18px}.project-timer{grid-template-columns:1fr}.project-ring{grid-row:auto}.project-timer-actions{grid-column:auto}.timer-zone-inner{grid-template-columns:1fr;gap:10px}.big-timer{font-size:28px}}
 </style>
 </head>
 <body>
 <div class="app">
-<header><div><div class="eyebrow">OneDigital · Animation</div><h1>Development timeline</h1><p class="sub">A shared production view for Gusto and UoN.</p></div><button class="share" id="share">Share timeline</button></header>
+<header>
+  <div><div class="eyebrow">OneDigital · Animation</div><h1>Development timeline</h1><p class="sub">A shared production view for Gusto and UoN.</p><div class="viewer-note" id="viewerNote">Anyone can view. Sign in with Google to make changes.</div></div>
+  <div class="header-actions"><button class="auth" id="auth">Sign in to edit</button><button class="share" id="share">Share timeline</button></div>
+</header>
+
 <section class="summary">
-<div class="metric action"><small>Current action</small><strong id="current">No active action</strong><span class="timer" id="summaryTimer"></span></div>
-<div class="metric"><small>Next deadline</small><strong>26 Oct</strong><span>Final script sign-off</span></div>
-<div class="metric"><small>Progress</small><strong id="progress">0 / 16</strong><span>milestones complete</span></div>
-<div class="metric"><small>Final delivery</small><strong>29 Nov</strong><span>23:59 target</span></div>
+  <div class="metric action"><small>Current action</small><strong id="current">No active action</strong><span class="timer" id="summaryTimer"></span></div>
+  <div class="metric"><small>Next deadline</small><strong>26 Oct</strong><span>Final script sign-off</span></div>
+  <div class="metric"><small>Progress</small><strong id="progress">0 / 16</strong><span>milestones complete</span></div>
+  <div class="metric"><small>Final delivery</small><strong>29 Nov</strong><span>23:59 target</span></div>
 </section>
+
 <section class="project-timer" id="projectTimer">
   <div class="project-timer-copy">
     <div class="timer-eyebrow">PROJECT COUNTDOWN</div>
     <div class="project-timer-title">Final delivery · 29 Nov, 23:59</div>
     <div class="project-timer-meta">Time remaining to the overall project deadline</div>
   </div>
-  <div class="project-ring" aria-label="Project time remaining">
-    <svg viewBox="0 0 100 100" role="img">
-      <circle class="ring-track" cx="50" cy="50" r="43"></circle>
-      <circle class="ring-value" id="projectRing" cx="50" cy="50" r="43"></circle>
-    </svg>
-    <div class="ring-label" id="projectRingLabel">--%</div>
+  <div class="project-ring" aria-label="Project time elapsed">
+    <svg viewBox="0 0 100 100" role="img"><circle class="ring-track" cx="50" cy="50" r="43"></circle><circle class="ring-value" id="projectRing" cx="50" cy="50" r="43"></circle></svg>
+    <div class="ring-label" id="projectRingLabel">0%</div>
   </div>
   <div class="project-clock-wrap">
-  <div class="project-clock" id="projectClock">--d --h --m --s</div>
-  <div class="time-progress-track" aria-label="Time elapsed">
-    <div class="time-progress-value" id="timeProgressValue"></div>
+    <div class="project-clock" id="projectClock">T-00d 00h 00m 00s</div>
+    <div class="time-progress-track" aria-label="Time elapsed"><div class="time-progress-value" id="timeProgressValue"></div></div>
+    <div class="time-progress-label"><span>Project elapsed</span><b id="timeProgressText">0%</b></div>
   </div>
-  <div class="time-progress-label"><span>Project elapsed</span><b id="timeProgressText">0%</b></div>
-</div>
-  <div class="project-timer-actions">
-    <button id="projectPause" class="timer-control">Pause</button>
-    <button id="projectReset" class="timer-control">Reset</button>
-  </div>
+  <div class="project-timer-actions"><button id="projectPause" class="timer-control">Pause</button><button id="projectReset" class="timer-control">Reset</button></div>
 </section>
+
 <section class="project-progress" aria-label="Project progress">
   <div class="progress-head"><b>Milestones complete</b><span id="progressText">0 / 16 complete · 0%</span></div>
   <div class="progress-track"><div class="progress-value" id="progressValue"></div></div>
 </section>
+
 <div class="timeline-wrap">
 <div class="stage-row">
 <div class="stage">01 · DEVELOPMENT<span>Script & approval</span></div><div class="stage">02 · DESIGN<span>Frames & animatic</span></div><div class="stage">03 · VO<span>Voiceover</span></div><div class="stage">04 · ANIMATE<span>Animation V1 → V2</span></div><div class="stage">05 · DELIVERY<span>Final output</span></div>
 </div>
 <div class="rail"><div class="events" id="events"></div></div>
+
 <div class="timer-zone" id="timerZone" aria-live="polite">
-  <div class="timer-connector" id="timerConnector"></div>
   <div class="timer-zone-inner">
-    <div>
-      <div class="timer-eyebrow">LIVE RESPONSE WINDOW</div>
-      <div class="timer-title" id="timerTitle">No active response window</div>
-      <div class="timer-meta" id="timerMeta">Start a 24h or 48h window from a milestone when feedback or approval is requested.</div>
-    </div>
+    <div><div class="timer-eyebrow">LIVE RESPONSE WINDOW</div><div class="timer-title" id="timerTitle">No active response window</div><div class="timer-meta" id="timerMeta">Start a 24h or 48h window from a milestone when feedback or approval is requested.</div></div>
     <div class="big-timer" id="bigTimer">--:--:--</div>
     <div class="timer-actions"><button class="timer-control" id="timerRestart">Restart</button><button class="timer-control" id="timerStop">Stop</button><button class="timer-control finish" id="timerFinish">Finish</button><button class="timer-open" id="timerOpen">Open milestone</button></div>
   </div>
 </div>
-<div class="legend">
-<span><i style="background:#D7336C"></i>Deadline</span><span><i style="background:#B91C2E"></i>Late / missed</span><span><i style="background:#F98109"></i>Upcoming / close</span><span><i style="background:#009BC1"></i>Ongoing</span><span><i style="background:#93D500"></i>Complete</span>
+
+<div class="legend"><span><i style="background:#D7336C"></i>Deadline</span><span><i style="background:#B91C2E"></i>Late / missed</span><span><i style="background:#F98109"></i>Upcoming / close</span><span><i style="background:#009BC1"></i>Ongoing</span><span><i style="background:#93D500"></i>Complete</span></div>
 </div>
-</div>
+
 <div class="tabs"><button class="tab active" data-view="timeline">Timeline</button><button class="tab" data-view="week">This week</button><button class="tab" data-view="activity">Activity</button></div>
-<section class="panel"><div class="list" id="view"></div><div class="activity"><div class="activity-head"><h2>Recent activity</h2><button class="activity-reset" id="activityReset">Reset activity</button></div><div id="activity"></div></div></section>
+<section class="panel"><div class="list" id="view"></div><div class="activity"><div class="activity-head"><h2>Recent activity</h2><button class="activity-reset" id="activityReset">Reset activity</button></div><div id="activity"><p class="sub">No updates yet.</p></div></div></section>
 </div>
-<dialog id="dlg"><div class="modal"><div class="modal-head"><div><div class="eyebrow" id="mstage"></div><h2 id="mtitle"></h2></div><button class="closebtn" onclick="dlg.close()">×</button></div><div class="meta" id="meta"></div><div class="modal-status"><label for="modalStatus"><b>Status</b></label><select id="modalStatus"></select><div class="field-help">Status changes are saved with this milestone. Starting a response window is a separate action.</div></div><label><b>Notes</b></label><textarea id="notes" placeholder="Add a note, decision, question or context…"></textarea><div class="actions"><button class="feedback" id="changes">Record feedback</button><div class="response-start"><label for="responseWindow"><b>Response window</b></label><select id="responseWindow"></select><button class="start" id="start">Start response window</button></div><button class="save" id="save">Save changes</button><button class="approve" id="approve">Mark received / approve</button></div></div></dialog>
+
+<dialog id="dlg">
+<div class="modal">
+  <div class="modal-head"><div><div class="eyebrow" id="mstage"></div><h2 id="mtitle"></h2></div><button class="closebtn" id="closeDialog">×</button></div>
+  <div class="meta" id="meta"></div>
+  <div class="modal-status"><label for="modalStatus"><b>Status</b></label><select id="modalStatus"></select><div class="field-help">Status changes are saved with this milestone. Starting a response window is a separate action.</div></div>
+  <label for="notes"><b>Notes</b></label><textarea id="notes" placeholder="Add a note, decision, question or context…"></textarea>
+  <div class="actions"><button class="feedback" id="changes">Record feedback</button><div class="response-start" id="responseStart"><label for="responseWindow"><b>Response window</b><select id="responseWindow"></select></label><button class="start" id="start">Start response window</button></div><button class="save" id="save">Save changes</button><button class="approve" id="approve">Mark received / approve</button></div>
+</div>
+</dialog>
 <div class="toast" id="toast"></div>
-<script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+import { getFirestore, doc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+const firebaseConfig={
+  apiKey:"AIzaSyB3FJMPxtcMiv78r9eeT3K_gS6XCo4Xcr0",
+  authDomain:"onedigital-animation-timeline.firebaseapp.com",
+  projectId:"onedigital-animation-timeline",
+  storageBucket:"onedigital-animation-timeline.firebasestorage.app",
+  messagingSenderId:"423697391751",
+  appId:"1:423697391751:web:f38172e9bd752b2459d822"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const provider=new GoogleAuthProvider();
+const projectRef=doc(db,"projects","onedigital-animation-timeline");
+
 const data=[
 ["Development","21 Oct","Gusto","Script shared","upcoming","Deadline for UoN feedback / sign-off"],
 ["Development","22 Oct","UoN","Feedback received","upcoming","Expected feedback deadline · 24h window"],
@@ -114,252 +131,293 @@ const data=[
 ["Animate","26 Nov","UoN","Feedback received","upcoming","Expected feedback deadline · 24h window"],
 ["Delivery","29 Nov","Gusto","Final delivery","upcoming","Project deadline · 23:59"]
 ];
-const STORAGE_VERSION="onedigital-blank-test-v2";
-if(localStorage.getItem("onedigitalVersion")!==STORAGE_VERSION){
-  localStorage.removeItem("onedigital");
-  localStorage.removeItem("onedigitalActivity");
-  localStorage.setItem("onedigitalVersion",STORAGE_VERSION);
-}
-let state=JSON.parse(localStorage.getItem("onedigital")||"{}"), activity=JSON.parse(localStorage.getItem("onedigitalActivity")||"[]"), selected=-1;
-const $=id=>document.getElementById(id);
-const dlg=$("dlg");
-function save(){localStorage.setItem("onedigital",JSON.stringify(state))}
-function saveActivity(){localStorage.setItem("onedigitalActivity",JSON.stringify(activity))}
-function logActivity(i,action,detail=""){
-  const d=data[i];
-  activity.push({time:new Date().toISOString(),i,owner:d[2],title:d[3],action,detail});
-  saveActivity();
-}
-function isDone(i){return state[i]?.status==="complete"||state[i]?.status==="approved"}
+
 const statusOptions=["upcoming","in-progress","awaiting-uon","feedback-received","changes-requested","approved","complete","at-risk","blocked"];
+const statusLabels={"upcoming":"Not started","in-progress":"In progress","awaiting-uon":"Awaiting UoN","feedback-received":"Feedback received","changes-requested":"Changes requested","approved":"Approved","complete":"Complete","at-risk":"At risk","blocked":"Blocked"};
 const responsePresets={
- "Script shared":[[24,"24h feedback"],[48,"48h feedback"]],
- "Final script shared":[[48,"48h final sign-off"],[24,"24h final sign-off"]],
- "Style frames shared":[[24,"24h feedback"],[48,"48h feedback"]],
- "Animatic V1":[[48,"48h feedback"],[24,"24h feedback"]],
- "VO artist options shared":[[48,"48h selection"],[24,"24h selection"]],
- "Animation V1":[[48,"48h feedback"],[24,"24h feedback"]],
- "Animation V2":[[24,"24h feedback"],[48,"48h feedback"]]
+"Script shared":[[24,"24h feedback"],[48,"48h feedback"]],
+"Final script shared":[[48,"48h final sign-off"],[24,"24h final sign-off"]],
+"Style frames shared":[[24,"24h feedback"],[48,"48h feedback"]],
+"Animatic V1":[[48,"48h feedback"],[24,"24h feedback"]],
+"VO artist options shared":[[48,"48h selection"],[24,"24h selection"]],
+"Animation V1":[[48,"48h feedback"],[24,"24h feedback"]],
+"Animation V2":[[24,"24h feedback"],[48,"48h feedback"]]
 };
 const defaultResponsePresets=[[24,"24h"],[48,"48h"]];
 
-const statusLabels={"upcoming":"Not started","in-progress":"In progress","awaiting-uon":"Awaiting UoN","feedback-received":"Feedback received","changes-requested":"Changes requested","approved":"Approved","complete":"Complete","at-risk":"At risk","blocked":"Blocked"};
+let state={};
+let activity=[];
+let selected=-1;
+let currentUser=null;
+let projectPaused=false;
+let projectPausedRemaining=null;
+let unsubscribe=null;
+let initialised=false;
+
+const $=id=>document.getElementById(id);
+const dlg=$("dlg");
+const PROJECT_START=new Date("2026-10-21T09:00:00");
+const PROJECT_DEADLINE=new Date("2026-11-29T23:59:00");
+const CIRC=270.18;
+
+function isEditor(){return !!currentUser}
+function isDone(i){return state[i]?.status==="complete"||state[i]?.status==="approved"}
 function statusClass(st){return st==="complete"||st==="approved"?"done":st==="late"||st==="blocked"?"late":st==="active"||st==="awaiting-uon"||st==="feedback-received"||st==="changes-requested"||st==="in-progress"?"active":st==="at-risk"?"close":"close"}
-function activeWindowIndex(){
- return data.findIndex((_,i)=>state[i]?.startedAt && ["active","awaiting-uon","feedback-received","changes-requested"].includes(state[i]?.status||""));
-}
-function timerIndex(){return activeWindowIndex()}
-function restartTimer(){
- const i=timerIndex(); if(i<0)return;
- const hours=state[i]?.windowHours||24;
- state[i]={...(state[i]||{}),status:"active",startedAt:new Date().toISOString(),windowHours:hours,updatedAt:new Date().toISOString()};
- logActivity(i,"Timer restarted",`${hours}h response window restarted`); save();toast("Response window restarted");render();
-}
-function stopTimer(){
- const i=timerIndex(); if(i<0)return;
- state[i]={...(state[i]||{}),status:"awaiting-uon",stoppedAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
- logActivity(i,"Timer stopped","Response window stopped before completion");
- delete state[i].startedAt; delete state[i].windowHours;
- save();toast("Response window stopped");render();
-}
-function finishTimer(){
- const i=timerIndex(); if(i<0)return;
- state[i]={...(state[i]||{}),status:"complete",completedAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
- delete state[i].startedAt; delete state[i].windowHours;
- logActivity(i,"Timer finished","Response window finished and milestone completed");
- save();toast("Response window finished");render();
-}
-function renderBigTimer(){
- const zone=$("timerZone"), idx=activeWindowIndex();
- if(idx<0){zone.classList.remove("show");return}
- const d=data[idx], item=state[idx], end=new Date(item.startedAt).getTime()+(item.windowHours||24)*3600000;
- $("timerTitle").textContent=`${d[3]} · ${d[2]}`;
- $("timerMeta").textContent=`${item.windowHours||24}h window · Started ${new Date(item.startedAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})} · ${statusLabels[item.status]||"Action required"}`;
- $("timerOpen").onclick=()=>openItem(idx);
- $("timerRestart").onclick=restartTimer;
- $("timerStop").onclick=stopTimer;
- $("timerFinish").onclick=finishTimer;
- zone.classList.add("show");
- const ms=end-Date.now();
- if(ms<=0){$("bigTimer").textContent="OVERDUE";return}
- const h=Math.floor(ms/3600000),m=Math.floor(ms/60000)%60,sec=Math.floor(ms/1000)%60;
- $("bigTimer").textContent=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
-}
-const PROJECT_START=new Date("2026-10-21T09:00:00"), PROJECT_DEADLINE=new Date("2026-11-29T23:59:00");
-let projectTimerPaused=false, projectPausedRemaining=null;
-function renderProjectProgress(){
- const total=data.length;
- const complete=data.filter((_,i)=>isDone(i)).length;
- const pct=total?Math.round(complete/total*100):0;
- if($("progressText")) $("progressText").textContent=`${complete} / ${total} complete · ${pct}%`;
- if($("progressValue")) $("progressValue").style.width=pct+"%";
-}
-function renderProjectTimer(){
- const clock=$("projectClock"), box=$("projectTimer");
- if(!clock || !box || !$("projectRing") || !$("projectRingLabel")) return;
- if(projectTimerPaused){
-   const ms=projectPausedRemaining||0;
-   clock.textContent=formatProjectDuration(ms);
-   const total=PROJECT_DEADLINE-PROJECT_START;
-   const elapsedMs=Math.max(0,total-ms);
-   const elapsedPct=Math.max(0,Math.min(100,(elapsedMs/total)*100));
-   $("projectRing").style.strokeDashoffset=(270.18-(270.18*elapsedPct/100)).toFixed(2);
-   $("projectRingLabel").textContent=Math.round(elapsedPct)+"%";
-   if($("timeProgressValue")) $("timeProgressValue").style.width=elapsedPct+"%";
-   if($("timeProgressText")) $("timeProgressText").textContent=Math.round(elapsedPct)+"%";
-   box.classList.add("paused");
-   $("projectPause").textContent="Resume";
-   return;
- }
- const ms=PROJECT_DEADLINE-Date.now();
- clock.textContent=ms<=0?"PROJECT DEADLINE":"T-"+formatProjectDuration(ms);
- const total=PROJECT_DEADLINE-PROJECT_START;
- const elapsedPct=Math.max(0,Math.min(100,((Date.now()-PROJECT_START)/total)*100));
- $("projectRing").style.strokeDashoffset=(270.18-(270.18*elapsedPct/100)).toFixed(2);
- $("projectRingLabel").textContent=Math.round(elapsedPct)+"%";
- if($("timeProgressValue")) $("timeProgressValue").style.width=elapsedPct+"%";
- if($("timeProgressText")) $("timeProgressText").textContent=Math.round(elapsedPct)+"%";
- box.classList.remove("paused");
- $("projectPause").textContent="Pause";
-}
-function formatProjectDuration(ms){
- ms=Math.max(0,ms);
- const d=Math.floor(ms/86400000),h=Math.floor(ms/3600000)%24,m=Math.floor(ms/60000)%60,sec=Math.floor(ms/1000)%60;
- return `${String(d).padStart(2,"0")}d ${String(h).padStart(2,"0")}h ${String(m).padStart(2,"0")}m ${String(sec).padStart(2,"0")}s`;
-}
-$("projectPause").onclick=()=>{
- if(!projectTimerPaused){projectPausedRemaining=Math.max(0,PROJECT_DEADLINE-Date.now());projectTimerPaused=true;toast("Project countdown paused");}
- else {projectTimerPaused=false;projectPausedRemaining=null;toast("Project countdown resumed");}
- renderProjectTimer();
-};
-$("projectReset").onclick=()=>{
- projectTimerPaused=false;projectPausedRemaining=null;renderProjectTimer();toast("Project countdown reset");
-};
-function render(){
- $("events").innerHTML="";
- data.forEach((d,i)=>{
-  let st=state[i]?.status || "upcoming", el=document.createElement("div");
-  el.className="event "+(st==="complete"||st==="approved"?"complete":st==="late"||st==="blocked"?"late":st==="active"||st==="awaiting-uon"||st==="feedback-received"||st==="changes-requested"||st==="in-progress"?"active":st==="at-risk"?"late":"");
-  let timer=(state[i]?.startedAt && st==="active")?`<div class="mini timer" data-i="${i}"></div>`:"";
-  let updated=state[i]?.updatedAt?`<div class="updated">Updated ${new Date(state[i].updatedAt).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div>`:"";
-  let opts=statusOptions.map(x=>`<option value="${x}" ${st===x?"selected":""}>${statusLabels[x]}</option>`).join("");
-  el.innerHTML=`<div class="dot"></div><div class="card" onclick="openItem(${i})"><div class="date">DUE ${d[1]} <span class="tag">${d[5].includes("window")?"DEADLINE":""}</span></div><span class="owner">${d[2]}</span><div class="title">${d[3]}</div><div class="status ${statusClass(st)}">${st==="complete"?"✓ COMPLETE":st==="approved"?"✓ APPROVED":st==="late"?"OVERDUE":st==="blocked"?"BLOCKED":st==="at-risk"?"AT RISK":st==="active"||st==="awaiting-uon"||st==="feedback-received"||st==="changes-requested"||st==="in-progress"?"ACTION REQUIRED":"UPCOMING"}</div><select class="status-select" aria-label="Change status for ${d[3]}" onclick="event.stopPropagation()" onchange="changeStatus(${i},this.value)">${opts}</select>${timer}${updated}</div>`;
-  $("events").appendChild(el);
- });
- $("progress").textContent=data.filter((_,i)=>isDone(i)).length+" / "+data.length;
- let active=data.findIndex((_,i)=>["active","awaiting-uon","feedback-received","changes-requested","in-progress"].includes(state[i]?.status||"upcoming"));
- $("current").textContent=active>=0?data[active][2]+" · "+data[active][3]:"No active action";
- renderView(document.querySelector(".tab.active")?.dataset.view||"timeline"); renderProjectProgress();
- renderActivity(); renderProjectTimer(); renderBigTimer(); tick();
-}
-function changeStatus(i,status){
- const previous=state[i]?.status||"upcoming";
- state[i]={...(state[i]||{}),status,updatedAt:new Date().toISOString()};
- if(status!=="active") { delete state[i].startedAt; delete state[i].windowHours; }
- const from=statusLabels[previous]||"Not started", to=statusLabels[status]||"Not started";
- logActivity(i, previous!=="upcoming" && status==="upcoming" ? "Reverted" : "Status changed", `${from} → ${to}`);
- save(); toast(`${data[i][3]} · ${to}`); render();
-}
-function openItem(i){
- selected=i;
- let d=data[i],st=state[i]?.status||"upcoming";
- $("mstage").textContent=d[0];
- $("mtitle").textContent=d[3];
- $("meta").innerHTML=`<span class="pill">${d[2]}</span><span class="pill">${d[1]}</span><span class="pill">${d[5]||"Milestone"}</span>`;
- $("modalStatus").innerHTML=statusOptions.map(x=>`<option value="${x}" ${st===x?"selected":""}>${statusLabels[x]}</option>`).join(""); const presets=responsePresets[d[3]]||defaultResponsePresets;
- const plannedHours=presets[0]?.[0]||24;
- $("responseWindow").value=String(plannedHours);
- $("responseWindow").innerHTML=presets.map(x=>`<option value="${x[0]}">${x[1]}</option>`).join("");
- $("responseWindow").disabled=!presets.length;
- $("notes").value=state[i]?.note||"";
- $("approve").style.display=(d[2]==="UoN"&&st!=="complete"&&st!=="approved")?"inline-block":"none"; $("start").style.display=(responsePresets[d[3]]||[]).length?"inline-block":"none"; $("responseWindow").parentElement.style.display=(responsePresets[d[3]]||[]).length?"flex":"none";
- $("changes").style.display=(d[2]==="UoN"&&st!=="complete")?"inline-block":"none";
- $("start").style.display=(st!=="complete" && !state[i]?.startedAt)?"inline-block":"none";
- dlg.showModal()
-}
-$("start").onclick=()=>{
- if(selected<0)return;
- let hours=Number($("responseWindow").value)||24;
- state[selected]={...(state[selected]||{}),status:"active",startedAt:new Date().toISOString(),windowHours:hours,updatedAt:new Date().toISOString()};
- logActivity(selected,"Timer started",`${hours}h response window started`);
- save();toast(hours+"h response window started");render();dlg.close()
-}
-$("save").onclick=()=>{
- if(selected<0)return;
- const previous=state[selected]?.status||"upcoming", next=$("modalStatus").value, oldNote=state[selected]?.note||"", newNote=$("notes").value;
- state[selected]={...(state[selected]||{}),status:next,note:newNote,updatedAt:new Date().toISOString()};
- if(previous!==next) logActivity(selected, previous!=="upcoming" && next==="upcoming" ? "Reverted" : "Status changed", `${statusLabels[previous]||"Not started"} → ${statusLabels[next]||"Not started"}`);
- if(oldNote!==newNote) logActivity(selected,"Note updated",newNote?newNote:"Note cleared");
- save();toast("Changes saved");render();dlg.close()
-}
-$("approve").onclick=()=>{
- if(selected<0)return;
- const previous=state[selected]?.status||"upcoming";
- state[selected]={...(state[selected]||{}),status:"complete",completedAt:new Date().toISOString(),approvedBy:"UoN",updatedAt:new Date().toISOString()};
- logActivity(selected,"Approved / completed",`${statusLabels[previous]||"Not started"} → Complete`);
- save();toast("Milestone marked complete");render();dlg.close()
-}
-$("changes").onclick=()=>{
- if(selected<0)return;
- state[selected]={...(state[selected]||{}),status:"feedback-received",note:$("notes").value,feedbackReceivedAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
- delete state[selected].startedAt; delete state[selected].windowHours;
- logActivity(selected,"Feedback received",$("notes").value||"Feedback recorded");
- save();toast("Feedback recorded");render();dlg.close()
-}
-function tick(){
- document.querySelectorAll(".timer").forEach(x=>{
-  let i=+x.dataset.i, item=state[i];
-  if(!item?.startedAt || !["active","awaiting-uon","feedback-received","changes-requested"].includes(item.status))return;
-  let end=new Date(item.startedAt).getTime()+(item.windowHours||24)*3600000;
-  let ms=end-Date.now();
-  if(ms<0){
-   x.textContent="OVERDUE";
-   if(item.status!=="complete"){item.status="late";state[i]=item;save();}
-   x.parentElement.parentElement.parentElement.classList.add("late");
-  }else{
-   let h=Math.floor(ms/3600000),m=Math.floor(ms/60000)%60,s=Math.floor(ms/1000)%60;
-   x.textContent=h+"h "+String(m).padStart(2,"0")+"m "+String(s).padStart(2,"0")+"s";
+function activeWindowIndex(){return data.findIndex((_,i)=>state[i]?.startedAt&&["active","awaiting-uon","feedback-received","changes-requested"].includes(state[i]?.status||""))}
+function toast(message){const t=$("toast");t.textContent=message;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2200)}
+function formatProjectDuration(ms){ms=Math.max(0,ms);const d=Math.floor(ms/86400000),h=Math.floor(ms/3600000)%24,m=Math.floor(ms/60000)%60,s=Math.floor(ms/1000)%60;return `${String(d).padStart(2,"0")}d ${String(h).padStart(2,"0")}h ${String(m).padStart(2,"0")}m ${String(s).padStart(2,"0")}s`}
+
+async function commit(mutator){
+  if(!isEditor()){toast("Sign in with Google to make changes");return false}
+  try{
+    await runTransaction(db,async tx=>{
+      const snap=await tx.get(projectRef);
+      const current=snap.exists()?snap.data():{state:{},activity:[]};
+      const nextState=JSON.parse(JSON.stringify(current.state||{}));
+      const nextActivity=Array.isArray(current.activity)?[...current.activity]:[];
+      const result=mutator(nextState,nextActivity);
+      tx.set(projectRef,{state:nextState,activity:nextActivity,updatedAt:new Date().toISOString()},{merge:true});
+      return result;
+    });
+    return true;
+  }catch(err){
+    console.error(err);
+    toast("Could not save. Check Firebase rules.");
+    return false;
   }
- });
- renderProjectTimer(); renderBigTimer(); setTimeout(tick,1000)
 }
-function renderView(v){
- let html="<h2>"+(v==="week"?"This week":"Timeline")+"</h2>";
- if(v==="timeline") html+="<p class='sub'>Click any milestone to add notes, update status, record feedback or approve an action.</p>";
- if(v==="week"){
-  const now=new Date(), day=(now.getDay()+6)%7;
-  const monday=new Date(now); monday.setHours(0,0,0,0); monday.setDate(now.getDate()-day);
-  const friday=new Date(monday); friday.setDate(monday.getDate()+4); friday.setHours(23,59,59,999);
-  let rows=[];
+
+function addActivity(list,i,action,detail=""){
+  const d=data[i];
+  list.push({id:crypto.randomUUID(),time:new Date().toISOString(),i,owner:d[2],title:d[3],action,detail,by:currentUser?.displayName||currentUser?.email||"Editor"});
+}
+
+function render(){
+  const events=$("events");events.innerHTML="";
   data.forEach((d,i)=>{
-   const match=d[1].match(/^(\d{1,2}) (Oct|Nov)$/); if(!match)return;
-   const month=match[2]==="Oct"?9:10;
-   const date=new Date(2026,month,+match[1]);
-   if(date>=monday&&date<=friday){
-    rows.push({i,date});
-   }
+    const st=state[i]?.status||"upcoming";
+    const el=document.createElement("div");
+    el.className="event "+(st==="complete"||st==="approved"?"complete":st==="late"||st==="blocked"?"late":st==="active"||st==="awaiting-uon"||st==="feedback-received"||st==="changes-requested"||st==="in-progress"?"active":st==="at-risk"?"late":"");
+    const timer=state[i]?.startedAt&&st==="active"?`<div class="mini timer" data-i="${i}"></div>`:"";
+    const updated=state[i]?.updatedAt?`<div class="updated">Updated ${new Date(state[i].updatedAt).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div>`:"";
+    const opts=statusOptions.map(x=>`<option value="${x}" ${st===x?"selected":""}>${statusLabels[x]}</option>`).join("");
+    el.innerHTML=`<div class="dot"></div><div class="card" onclick="window.openItem(${i})"><div class="date">DUE ${d[1]} <span class="tag">${d[5].includes("window")?"DEADLINE":""}</span></div><span class="owner">${d[2]}</span><div class="title">${d[3]}</div><div class="status ${statusClass(st)}">${st==="complete"?"✓ COMPLETE":st==="approved"?"✓ APPROVED":st==="late"?"OVERDUE":st==="blocked"?"BLOCKED":st==="at-risk"?"AT RISK":st==="active"||st==="awaiting-uon"||st==="feedback-received"||st==="changes-requested"||st==="in-progress"?"ACTION REQUIRED":"NOT STARTED"}</div><select class="status-select" aria-label="Change status for ${d[3]}" ${isEditor()?"":"disabled"} onclick="event.stopPropagation()" onchange="window.changeStatus(${i},this.value)">${opts}</select>${timer}${updated}</div>`;
+    events.appendChild(el);
   });
-  rows.sort((a,b)=>a.date-b.date);
-  if(!rows.length) html+="<p class='sub'>Nothing due Monday–Friday this week.</p>";
-  rows.forEach(({i})=>{
-   const d=data[i],st=state[i]?.status||"upcoming";
-   html+=`<div class="row"><div><b>${d[3]}</b><small>${d[1]} · ${d[2]} · ${statusLabels[st]||"Not started"}</small></div><button onclick="openItem(${i})">Open</button></div>`;
-  });
- } else if(v==="activity") html+="<p class='sub'>Review notes, approvals and status changes in the activity panel.</p>";
- $("view").innerHTML=html
+  const complete=data.filter((_,i)=>isDone(i)).length;
+  const pct=Math.round(complete/data.length*100);
+  $("progress").textContent=`${complete} / ${data.length}`;
+  $("progressText").textContent=`${complete} / ${data.length} complete · ${pct}%`;
+  $("progressValue").style.width=pct+"%";
+  const active=data.findIndex((_,i)=>["active","awaiting-uon","feedback-received","changes-requested","in-progress"].includes(state[i]?.status||""));
+  $("current").textContent=active>=0?data[active][2]+" · "+data[active][3]:"No active action";
+  renderView(document.querySelector(".tab.active")?.dataset.view||"timeline");
+  renderActivity();
+  renderBigTimer();
+  renderProjectTimer();
+  updateAuthUI();
 }
+
+function renderView(v){
+  let html=`<h2>${v==="week"?"This week":v==="activity"?"Activity":"Timeline"}</h2>`;
+  if(v==="timeline") html+=`<p class="sub">Click any milestone to add notes, update status, record feedback or approve an action.</p>`;
+  if(v==="week"){
+    const now=new Date(),day=(now.getDay()+6)%7,monday=new Date(now);monday.setHours(0,0,0,0);monday.setDate(now.getDate()-day);
+    const friday=new Date(monday);friday.setDate(monday.getDate()+4);friday.setHours(23,59,59,999);
+    const rows=[];
+    data.forEach((d,i)=>{const match=d[1].match(/^(\d{1,2}) (Oct|Nov)$/);if(!match)return;const month=match[2]==="Oct"?9:10,date=new Date(2026,month,+match[1]);if(date>=monday&&date<=friday)rows.push({i,date})});
+    rows.sort((a,b)=>a.date-b.date);
+    if(!rows.length) html+=`<p class="sub">Nothing due Monday–Friday this week.</p>`;
+    rows.forEach(({i})=>{const d=data[i],st=state[i]?.status||"upcoming";html+=`<div class="row"><div><b>${d[3]}</b><small>${d[1]} · ${d[2]} · ${statusLabels[st]||"Not started"}</small></div><button onclick="window.openItem(${i})">Open</button></div>`});
+  }
+  if(v==="activity") html+=`<p class="sub">Review notes, approvals and status changes in the Recent activity panel.</p>`;
+  $("view").innerHTML=html;
+}
+
 function renderActivity(){
- const items=activity.slice(-12).reverse();
- $("activity").innerHTML=items.length?items.map(x=>{
-  const when=new Date(x.time).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
-  return `<p><b>${x.action}</b> · ${x.owner}<br><strong>${x.title}</strong>${x.detail?`<br>${x.detail}`:""}<br><small>${when}</small></p>`;
- }).join(""):"<p class='sub'>No updates yet.</p>";
+  const items=activity.slice(-12).reverse();
+  $("activity").innerHTML=items.length?items.map(x=>{
+    const when=new Date(x.time).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+    return `<p><b>${x.action}</b> · ${x.by||x.owner}<br><strong>${x.title}</strong>${x.detail?`<br>${x.detail}`:""}<br><small>${when}</small></p>`;
+  }).join(""):`<p class="sub">No updates yet.</p>`;
 }
-if($("activityReset")) $("activityReset").onclick=()=>{
- if(!confirm("Reset Recent activity? This removes the activity history only; milestone statuses and notes will remain."))return;
- activity=[]; saveActivity(); renderActivity(); toast("Recent activity reset");
+
+function renderBigTimer(){
+  const zone=$("timerZone"),idx=activeWindowIndex();
+  if(idx<0){zone.classList.remove("show");return}
+  const d=data[idx],item=state[idx],end=new Date(item.startedAt).getTime()+(item.windowHours||24)*3600000;
+  $("timerTitle").textContent=`${d[3]} · ${d[2]}`;
+  $("timerMeta").textContent=`${item.windowHours||24}h window · Started ${new Date(item.startedAt).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})} · ${statusLabels[item.status]||"Action required"}`;
+  $("timerOpen").onclick=()=>window.openItem(idx);
+  $("timerRestart").onclick=restartTimer;
+  $("timerStop").onclick=stopTimer;
+  $("timerFinish").onclick=finishTimer;
+  zone.classList.add("show");
+  const ms=end-Date.now();
+  if(ms<=0){$("bigTimer").textContent="OVERDUE";return}
+  const h=Math.floor(ms/3600000),m=Math.floor(ms/60000)%60,s=Math.floor(ms/1000)%60;
+  $("bigTimer").textContent=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+}
+
+function renderProjectTimer(){
+  const clock=$("projectClock"),box=$("projectTimer");if(!clock||!box)return;
+  const total=PROJECT_DEADLINE-PROJECT_START;
+  let remaining,elapsedPct;
+  if(projectPaused){remaining=projectPausedRemaining||0;elapsedPct=Math.max(0,Math.min(100,((total-remaining)/total)*100));box.classList.add("paused");$("projectPause").textContent="Resume"}
+  else{remaining=PROJECT_DEADLINE-Date.now();elapsedPct=Math.max(0,Math.min(100,((Date.now()-PROJECT_START)/total)*100));box.classList.remove("paused");$("projectPause").textContent="Pause"}
+  clock.textContent=remaining<=0?"PROJECT DEADLINE":"T-"+formatProjectDuration(remaining);
+  $("projectRing").style.strokeDashoffset=(CIRC-(CIRC*elapsedPct/100)).toFixed(2);
+  $("projectRingLabel").textContent=Math.round(elapsedPct)+"%";
+  $("timeProgressValue").style.width=elapsedPct+"%";
+  $("timeProgressText").textContent=Math.round(elapsedPct)+"%";
+}
+
+function tick(){
+  document.querySelectorAll(".timer").forEach(x=>{
+    const i=+x.dataset.i,item=state[i];if(!item?.startedAt||!["active","awaiting-uon","feedback-received","changes-requested"].includes(item.status))return;
+    const end=new Date(item.startedAt).getTime()+(item.windowHours||24)*3600000,ms=end-Date.now();
+    if(ms<0)x.textContent="OVERDUE";else{const h=Math.floor(ms/3600000),m=Math.floor(ms/60000)%60,s=Math.floor(ms/1000)%60;x.textContent=h+"h "+String(m).padStart(2,"0")+"m "+String(s).padStart(2,"0")+"s"}
+  });
+  renderProjectTimer();renderBigTimer();setTimeout(tick,1000);
+}
+
+async function changeStatus(i,status){
+  if(!isEditor()){toast("Sign in with Google to make changes");return}
+  const previous=state[i]?.status||"upcoming";
+  if(previous===status)return;
+  const ok=await commit((nextState,nextActivity)=>{
+    nextState[i]={...(nextState[i]||{}),status,updatedAt:new Date().toISOString()};
+    if(status!=="active"){delete nextState[i].startedAt;delete nextState[i].windowHours}
+    addActivity(nextActivity,i,previous!=="upcoming"&&status==="upcoming"?"Reverted":"Status changed",`${statusLabels[previous]||"Not started"} → ${statusLabels[status]||"Not started"}`);
+  });
+  if(ok){toast(`${data[i][3]} · ${statusLabels[status]}`)}
+}
+
+async function restartTimer(){
+  const i=activeWindowIndex();if(i<0)return;
+  const hours=state[i]?.windowHours||24;
+  const ok=await commit((s,a)=>{s[i]={...(s[i]||{}),status:"active",startedAt:new Date().toISOString(),windowHours:hours,updatedAt:new Date().toISOString()};addActivity(a,i,"Timer restarted",`${hours}h response window restarted`)});
+  if(ok)toast("Response window restarted");
+}
+async function stopTimer(){
+  const i=activeWindowIndex();if(i<0)return;
+  const ok=await commit((s,a)=>{s[i]={...(s[i]||{}),status:"awaiting-uon",stoppedAt:new Date().toISOString(),updatedAt:new Date().toISOString()};delete s[i].startedAt;delete s[i].windowHours;addActivity(a,i,"Timer stopped","Response window stopped before completion")});
+  if(ok)toast("Response window stopped");
+}
+async function finishTimer(){
+  const i=activeWindowIndex();if(i<0)return;
+  const previous=statusLabels[state[i]?.status||"upcoming"]||"Not started";
+  const ok=await commit((s,a)=>{s[i]={...(s[i]||{}),status:"complete",completedAt:new Date().toISOString(),updatedAt:new Date().toISOString()};delete s[i].startedAt;delete s[i].windowHours;addActivity(a,i,"Timer finished",`${previous} → Complete`)});
+  if(ok)toast("Response window finished");
+}
+
+window.openItem=function(i){
+  selected=i;const d=data[i],st=state[i]?.status||"upcoming";
+  $("mstage").textContent=d[0];$("mtitle").textContent=d[3];
+  $("meta").innerHTML=`<span class="pill">${d[2]}</span><span class="pill">${d[1]}</span><span class="pill">${d[5]||"Milestone"}</span>`;
+  $("modalStatus").innerHTML=statusOptions.map(x=>`<option value="${x}" ${st===x?"selected":""}>${statusLabels[x]}</option>`).join("");
+  const presets=responsePresets[d[3]]||defaultResponsePresets;
+  $("responseWindow").innerHTML=presets.map(x=>`<option value="${x[0]}">${x[1]}</option>`).join("");
+  $("responseWindow").value=String(presets[0]?.[0]||24);
+  $("responseWindow").disabled=!isEditor();
+  $("notes").value=state[i]?.note||"";
+  $("notes").disabled=!isEditor();
+  $("modalStatus").disabled=!isEditor();
+  $("approve").style.display=(isEditor()&&d[2]==="UoN"&&st!=="complete"&&st!=="approved")?"inline-block":"none";
+  $("changes").style.display=(isEditor()&&d[2]==="UoN"&&st!=="complete")?"inline-block":"none";
+  $("responseStart").style.display=(isEditor()&&presets.length&&st!=="complete"&&!state[i]?.startedAt)?"flex":"none";
+  $("save").style.display=isEditor()?"inline-block":"none";
+  $("start").disabled=!isEditor();
+  dlg.showModal();
+}
+
+$("closeDialog").onclick=()=>dlg.close();
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+
+$("start").onclick=async()=>{
+  if(selected<0||!isEditor())return;
+  const hours=Number($("responseWindow").value)||24;
+  const ok=await commit((s,a)=>{s[selected]={...(s[selected]||{}),status:"active",startedAt:new Date().toISOString(),windowHours:hours,updatedAt:new Date().toISOString()};addActivity(a,selected,"Timer started",`${hours}h response window started`)});
+  if(ok){toast(hours+"h response window started");dlg.close()}
+}
+
+$("save").onclick=async()=>{
+  if(selected<0||!isEditor())return;
+  const previous=state[selected]?.status||"upcoming",next=$("modalStatus").value,oldNote=state[selected]?.note||"",newNote=$("notes").value;
+  if(previous===next&&oldNote===newNote){dlg.close();return}
+  const ok=await commit((s,a)=>{
+    s[selected]={...(s[selected]||{}),status:next,note:newNote,updatedAt:new Date().toISOString()};
+    if(next!=="active"){delete s[selected].startedAt;delete s[selected].windowHours}
+    if(previous!==next)addActivity(a,selected,previous!=="upcoming"&&next==="upcoming"?"Reverted":"Status changed",`${statusLabels[previous]||"Not started"} → ${statusLabels[next]||"Not started"}`);
+    if(oldNote!==newNote)addActivity(a,selected,"Note updated",newNote?"Note saved":"Note cleared");
+  });
+  if(ok){toast("Changes saved");dlg.close()}
+}
+
+$("approve").onclick=async()=>{
+  if(selected<0||!isEditor())return;
+  const previous=state[selected]?.status||"upcoming";
+  const ok=await commit((s,a)=>{s[selected]={...(s[selected]||{}),status:"complete",completedAt:new Date().toISOString(),approvedBy:"UoN",updatedAt:new Date().toISOString()};delete s[selected].startedAt;delete s[selected].windowHours;addActivity(a,selected,"Approved / completed",`${statusLabels[previous]||"Not started"} → Complete`)});
+  if(ok){toast("Milestone marked complete");dlg.close()}
+}
+
+$("changes").onclick=async()=>{
+  if(selected<0||!isEditor())return;
+  const oldNote=state[selected]?.note||"",newNote=$("notes").value;
+  const ok=await commit((s,a)=>{s[selected]={...(s[selected]||{}),status:"feedback-received",note:newNote,feedbackReceivedAt:new Date().toISOString(),updatedAt:new Date().toISOString()};delete s[selected].startedAt;delete s[selected].windowHours;addActivity(a,selected,"Feedback received",newNote||"Feedback recorded")});
+  if(ok){toast("Feedback recorded");dlg.close()}
+}
+
+$("activityReset").onclick=async()=>{
+  if(!isEditor()){toast("Sign in with Google to reset activity");return}
+  if(!confirm("Reset Recent activity? This clears the activity history and records the reset as the first new activity entry."))return;
+  const ok=await commit((s,a)=>{
+    const resetEntry={id:crypto.randomUUID(),time:new Date().toISOString(),i:-1,owner:"System",title:"Recent activity",action:"Activity reset",detail:"Activity history was reset",by:currentUser?.displayName||currentUser?.email||"Editor"};
+    a.length=0;a.push(resetEntry);
+  });
+  if(ok)toast("Recent activity reset");
+}
+
+$("projectPause").onclick=()=>{toast("Project countdown is fixed to the project dates; use Reset only to reset the display")};
+$("projectReset").onclick=()=>{projectPaused=false;projectPausedRemaining=null;renderProjectTimer();toast("Project countdown reset")};
+
+document.querySelectorAll(".tab").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderView(btn.dataset.view)});
+
+$("share").onclick=async()=>{try{await navigator.clipboard.writeText(location.href);toast("Timeline link copied")}catch{toast("Copy the page address to share the timeline")}};
+
+$("auth").onclick=async()=>{
+  try{if(currentUser){await signOut(auth);toast("Signed out")}else{await signInWithPopup(auth,provider)}}catch(err){console.error(err);toast("Google sign-in could not be completed")}
 };
+
+function updateAuthUI(){
+  const b=$("auth");
+  if(currentUser){b.textContent=`Sign out · ${currentUser.displayName||currentUser.email||"Editor"}`;b.classList.add("signed");$("viewerNote").textContent="Signed in. You can edit the timeline and activity."}
+  else{b.textContent="Sign in to edit";b.classList.remove("signed");$("viewerNote").textContent="Anyone can view. Sign in with Google to make changes."}
+}
+
+onAuthStateChanged(auth,user=>{
+  currentUser=user;
+  updateAuthUI();
+  if(!initialised){initialised=true;render()}
+});
+
+unsubscribe=onSnapshot(projectRef,snap=>{
+  if(snap.exists()){
+    const d=snap.data();
+    state=d.state||{};
+    activity=Array.isArray(d.activity)?d.activity:[];
+  }else{
+    state={};activity=[];
+  }
+  render();
+},err=>{
+  console.error(err);
+  $("activity").innerHTML=`<p class="sub">Could not connect to the shared timeline. Check the Firestore rules.</p>`;
+  toast("Firebase connection error");
+});
+
 render();
+tick();
 </script>
 </body>
 </html>
