@@ -96,8 +96,7 @@ dialog{border:0;border-radius:18px;padding:0;width:min(620px,92vw);background:#f
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-import { getFirestore, doc, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-
+import { getFirestore, doc, onSnapshot, runTransaction, setDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 const firebaseConfig={
   apiKey:"AIzaSyB3FJMPxtcMiv78r9eeT3K_gS6XCo4Xcr0",
   authDomain:"onedigital-animation-timeline.firebaseapp.com",
